@@ -1,0 +1,115 @@
+---
+title: "Fehlerbehebung"
+description: "Häufige Probleme mit API-Referenzen"
+icon: "message-square-warning"
+---
+
+Wenn Ihre API-Seiten nicht richtig angezeigt werden, prüfen Sie diese häufigen Konfigurationsfehler:
+
+<AccordionGroup>
+  <Accordion title="Alle meine OpenAPI-Seiten sind komplett leer">
+    In diesem Fall kann Mintlify wahrscheinlich entweder Ihr OpenAPI-Dokument nicht finden
+    oder Ihr OpenAPI-Dokument ist ungültig.
+
+    Das lokale Ausführen von `mint dev` sollte einige dieser Probleme aufdecken.
+
+    So überprüfen Sie, ob Ihr OpenAPI-Dokument die Validierung besteht:
+
+    1. Besuchen Sie [diesen Validator](https://editor.swagger.io/)
+    2. Wechseln Sie zur Registerkarte „Validate text“
+    3. Fügen Sie Ihr OpenAPI-Dokument ein
+    4. Klicken Sie auf „Validate it!“
+
+    Wenn das unten erscheinende Textfeld einen grünen Rand hat, hat Ihr Dokument die Validierung bestanden.
+    Dies ist genau das Validierungspaket, das Mintlify zur Validierung von OpenAPI-Dokumenten verwendet. Wenn Ihr Dokument
+    die Validierung hier besteht, ist es sehr wahrscheinlich, dass das Problem anderswo liegt.
+
+    Außerdem unterstützt Mintlify OpenAPI 2.0 nicht. Wenn Ihr Dokument diese Version der Spezifikation verwendet,
+    kann dieses Problem auftreten. Sie können Ihr Dokument auf [editor.swagger.io](https://editor.swagger.io/) konvertieren (unter Edit > Convert to OpenAPI 3):
+
+    <Frame>
+      ![](/images/convert-oas-3.png)
+    </Frame>
+  </Accordion>
+
+  <Accordion title="Eine meiner OpenAPI-Seiten ist komplett leer">
+    Dies wird in der Regel durch ein falsch geschriebenes `openapi`-Feld in den Seitenmetadaten verursacht. Stellen Sie sicher,
+    dass die HTTP-Methode und der Pfad exakt mit der HTTP-Methode und dem Pfad im OpenAPI-Dokument übereinstimmen.
+
+    Hier ist ein Beispiel, wie etwas schiefgehen kann:
+
+    ```mdx get-user.mdx
+    ---
+    openapi: "GET /users/{id}/"
+    ---
+    ```
+
+    ```yaml openapi.yaml
+    paths:
+      "/users/{id}":
+        get: ...
+    ```
+
+    Beachten Sie, dass der Pfad im `openapi`-Feld einen abschließenden Slash hat, während der Pfad im OpenAPI-
+    Dokument keinen hat.
+
+    Ein weiteres häufiges Problem ist ein falsch geschriebener Dateiname. Wenn Sie ein bestimmtes OpenAPI-Dokument
+    im `openapi`-Feld angeben, stellen Sie sicher, dass der Dateiname korrekt ist. Wenn Sie beispielsweise zwei OpenAPI-
+    Dokumente `openapi/v1.json` und `openapi/v2.json` haben, könnten Ihre Metadaten so aussehen:
+
+    ```mdx api-reference/v1/users/get-user.mdx
+    ---
+    openapi: "v1 GET /users/{id}"
+    ---
+    ```
+  </Accordion>
+
+  <Accordion title="Anfragen aus der API-Spielwiese funktionieren nicht">
+    Wenn Sie eine benutzerdefinierte Domain konfiguriert haben, könnte dies ein Problem mit Ihrem Reverse-Proxy sein. Standardmäßig
+    beginnen Anfragen über die API-Spielwiese mit einer `POST`-Anfrage an den Pfad
+    `/api/request` auf der Docs-Website. Wenn Ihr Reverse-Proxy so konfiguriert ist, dass er nur `GET`-
+    Anfragen zulässt, schlagen alle diese Anfragen fehl. Um dies zu beheben, konfigurieren Sie Ihren Reverse-Proxy so,
+    dass `POST`-Anfragen an den Pfad `/api/request` erlaubt sind.
+
+    Alternativ können Sie, falls Ihr Reverse-Proxy keine `POST`-Anfragen zulässt, Mintlify so konfigurieren, dass Anfragen mit der Einstellung `api.playground.proxy` in der `docs.json` direkt an Ihr Backend gesendet werden, wie in der [Einstellungsdokumentation](/de/settings#param-proxy) beschrieben. Bei dieser Konfiguration müssen Sie CORS auf Ihrem Server einrichten, da Anfragen direkt aus den Browsern der Nutzer statt über Ihren Proxy kommen.
+  </Accordion>
+
+  <Accordion title="OpenAPI-Navigationseinträge generieren keine Seiten">
+    Wenn Sie eine OpenAPI-Navigationskonfiguration verwenden, die Seiten aber nicht generiert werden, überprüfen Sie diese häufigen Probleme:
+
+    1. **Fehlende Standard-OpenAPI-Spezifikation**: Stellen Sie sicher, dass Sie ein `openapi`-Feld für das Navigationselement gesetzt haben:
+
+    ```json {5}
+    "navigation": {
+      "groups": [
+        {
+          "group": "API reference",
+          "openapi": "/path/to/openapi.json",
+          "pages": [
+            "GET /users",
+            "POST /users"
+          ]
+        }
+      ]
+    }
+    ```
+
+    2. **Vererbung der OpenAPI-Spezifikation**: Wenn eine verschachtelte Navigation verwendet wird, stellen Sie sicher, dass untergeordnete Gruppen die korrekte OpenAPI-Spezifikation erben oder ihre eigene angeben.
+
+    3. **Validierungsprobleme**: Verwenden Sie `mint openapi-check <path-to-openapi-file>`, um zu prüfen, ob Ihr OpenAPI-Dokument gültig ist.
+  </Accordion>
+
+  <Accordion title="Einige OpenAPI-Operationen erscheinen in der Navigation, andere nicht">
+    1. **Ausgeblendete Operationen**: Operationen, die in Ihrer OpenAPI-Spezifikation mit `x-hidden: true` markiert sind, erscheinen nicht in der automatisch generierten Navigation.
+    2. **Ungültige Operationen**: Operationen mit Validierungsfehlern in der OpenAPI-Spezifikation können übersprungen werden. Prüfen Sie Ihr OpenAPI-Dokument auf Syntaxfehler.
+    3. **Manuelle vs. automatische Aufnahme**: Wenn Sie Endpunkte aus einer OpenAPI-Spezifikation referenzieren, erscheinen nur die ausdrücklich referenzierten Operationen in der Navigation. Es werden keine anderen Seiten automatisch hinzugefügt. Dies schließt Operationen ein, die in untergeordneten Navigationselementen referenziert werden.
+  </Accordion>
+
+  <Accordion title="Gemischte Navigation (OpenAPI- und MDX-Seiten) funktioniert nicht korrekt">
+    Beim Kombinieren von OpenAPI-Operationen mit regulären Dokumentationsseiten in der Navigation:
+
+    1. **Dateikonflikte**: Sie können nicht sowohl eine MDX-Datei als auch einen Navigationseintrag für dieselbe Operation haben. Wenn Sie beispielsweise `get-users.mdx` haben, fügen Sie `"GET /users"` nicht zusätzlich zu Ihrer Navigation hinzu. Wenn Sie eine Datei benötigen, die sich einen Namen mit einer Operation teilt, verwenden Sie die `x-mint`-Erweiterung für den Endpunkt, damit das href auf einen anderen Ort verweist.
+    2. **Pfadauflösung**: Navigationseinträge, die nicht mit OpenAPI-Operationen übereinstimmen, werden als Dateipfade behandelt. Stellen Sie sicher, dass Ihre MDX-Dateien an den erwarteten Orten vorhanden sind.
+    3. **Groß-/Kleinschreibung**: Das Matching von OpenAPI-Operationen ist case-sensitiv. Stellen Sie sicher, dass HTTP-Methoden in Navigationseinträgen großgeschrieben sind.
+  </Accordion>
+</AccordionGroup>

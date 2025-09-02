@@ -1,0 +1,47 @@
+---
+title: "Monorepo-Einrichtung"
+description: "Deployen Sie Ihre Doku aus einem Repository, das mehrere Projekte enthält"
+icon: "folder-git"
+---
+
+Konfigurieren Sie Mintlify so, dass die Dokumentation aus einem bestimmten Verzeichnis innerhalb eines Monorepos deployt wird. Diese Konfiguration ermöglicht es Ihnen, die Dokumentation gemeinsam mit Ihrem Code in Repositories zu pflegen, die mehrere Projekte oder Services enthalten.
+
+<div id="prerequisites">
+  ## Voraussetzungen
+</div>
+
+* Admin-Zugriff auf Ihr Mintlify-Projekt.
+* Dokumentationsdateien, die in einem eigenen Verzeichnis innerhalb Ihres Monorepos organisiert sind.
+* Eine gültige `docs.json` in Ihrem Dokumentationsverzeichnis.
+
+<div id="configure-monorepo-deployment">
+  ## Monorepo-Bereitstellung konfigurieren
+</div>
+
+<Steps>
+<Step title="Git-Einstellungen aufrufen">
+Navigieren Sie in Ihrem Dashboard zu [Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings).
+
+<Frame>
+<img
+  className="block dark:hidden my-0 pointer-events-none"
+  src="/images/monorepo-light.png"
+  alt="Das Einstellungsfeld des Projekts im Menü Git Settings. Der Umschalter Set up as monorepo ist aktiviert und ein Pfad zum Verzeichnis /docs ist angegeben."
+/>
+<img
+  className="hidden dark:block my-0 pointer-events-none"
+  src="/images/monorepo-dark.png"
+  alt="Das Einstellungsfeld des Projekts im Menü Git Settings. Der Umschalter Set up as monorepo ist aktiviert und ein Pfad zum Verzeichnis /docs ist angegeben."
+/>
+</Frame>
+
+</Step>
+<Step title="Pfad zu Ihrer Dokumentation festlegen">
+1. Aktivieren Sie den Umschalter **Set up as monorepo**.
+2. Geben Sie den relativen Pfad zu Ihrem Docs-Verzeichnis ein. Wenn sich Ihre Docs beispielsweise im Verzeichnis `docs` befinden, geben Sie `/docs` ein.
+<Note>
+  Fügen Sie am Ende des Pfads keinen abschließenden Slash hinzu.
+</Note>
+3. Wählen Sie **Save changes**.
+</Step>
+</Steps>

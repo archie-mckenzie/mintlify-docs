@@ -1,0 +1,47 @@
+---
+title: "Aufklappbereiche"
+description: "Umschalten, um geschachtelte Eigenschaften anzuzeigen"
+icon: "list-tree"
+---
+
+Verwenden Sie Aufklappbereiche, um geschachtelte Inhalte in Response-Feldern ein- und auszublenden. Sie eignen sich besonders, um komplexe Objekteigenschaften in der API-Dokumentation darzustellen.
+
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+
+<ResponseField name="full_name" type="string">
+  Der vollständige Name des Benutzers
+</ResponseField>
+
+<ResponseField name="is_over_21" type="boolean">
+  Ob der Benutzer über 21 Jahre alt ist
+</ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+```mdx Expandable example
+<ResponseField name="user" type="User Object">
+  <Expandable title="properties">
+    <ResponseField name="full_name" type="string">
+      Der vollständige Name des Benutzers
+    </ResponseField>
+
+    <ResponseField name="is_over_21" type="boolean">
+      Ob der Benutzer über 21 Jahre alt ist
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+```
+
+<div id="properties">
+  ## Eigenschaften
+</div>
+
+<ResponseField name="title" type="string">
+  Der Name des Objekts, das angezeigt wird.
+</ResponseField>
+
+<ResponseField name="defaultOpen" type="boolean" default="false">
+  Auf `true` setzen, damit das ausklappbare Element beim Laden der Seite geöffnet ist
+</ResponseField>
