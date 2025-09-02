@@ -1,0 +1,396 @@
+---
+title: "Model Context Protocol"
+description: "Ermöglichen Sie Benutzerinnen und Benutzern den Zugriff auf Ihre Dokumentation und APIs über ihre bevorzugten KI‑Tools"
+icon: "audio-waveform"
+keywords: ["mcp"]
+---
+
+import { PreviewButton } from "/snippets/previewbutton.jsx"
+
+<div id="about-mcp-servers">
+  ## Über MCP-Server
+</div>
+
+Das Model Context Protocol (MCP) ist ein offenes Protokoll, das standardisierte Verbindungen zwischen KI-Anwendungen und externen Diensten wie Dokumentation ermöglicht. Mintlify generiert aus Ihrer Dokumentation und Ihren OpenAPI-Spezifikationen einen MCP-Server und bereitet Ihre Inhalte für das breitere KI-Ökosystem vor, in dem sich jeder MCP-Client (wie Claude, Cursor, Goose und andere) mit Ihrer Dokumentation und Ihren APIs verbinden kann.
+
+Ihr MCP-Server stellt Tools bereit, mit denen KI-Anwendungen Ihre Dokumentation durchsuchen und mit Ihren APIs interagieren können.
+
+<div id="accessing-your-mcp-server">
+  ## Zugriff auf Ihren MCP-Server
+</div>
+
+<Note>
+  MCP-Server können nur für öffentliche Dokumentation generiert werden. Dokumentation hinter einer Endbenutzerauthentifizierung steht für die Servererstellung nicht zur Verfügung.
+</Note>
+
+Ihr MCP-Server wird automatisch generiert und unter Ihrer Dokumentations-URL mit dem Pfad `/mcp` gehostet. Der MCP-Server von Mintlify ist zum Beispiel unter `https://mintlify.com/docs/mcp` verfügbar.
+
+Sie können die URL Ihres MCP-Servers in Ihrem [Dashboard](https://dashboard.mintlify.com/products/mcp) anzeigen und kopieren.
+
+<div id="configuring-your-mcp-server">
+  ## Konfigurieren Ihres MCP-Servers
+</div>
+
+Alle MCP-Server enthalten standardmäßig das Tool `search`, mit dem Nutzer Informationen aus Ihren Docs in anderen Tools abfragen können.
+
+Wenn Sie einen [Pro- oder Enterprise-Plan](https://mintlify.com/pricing?ref=mcp) haben, können Sie Endpunkte aus Ihrer OpenAPI-Spezifikation als MCP-Tools verfügbar machen.
+
+Um Endpunkte als MCP-Tools verfügbar zu machen, verwenden Sie das Objekt `mcp` innerhalb der Erweiterung `x-mint` auf Datei- oder Endpunktebene. Der Mintlify-MCP-Server enthält beispielsweise Tools zum Erstellen von Assistenten-Chats, zum Abrufen von Statusupdates und zum Auslösen von Updates.
+
+MCP-Server verfolgen einen Security-first-Ansatz, bei dem API-Endpunkte standardmäßig nicht offengelegt werden. Sie müssen Endpunkte ausdrücklich aktivieren, um sie als MCP-Tools verfügbar zu machen. Legen Sie nur Endpunkte offen, die für den öffentlichen Zugriff über KI-Tools unbedenklich sind.
+
+<ResponseField name="mcp" type="object">
+  Die MCP-Konfiguration für den Endpunkt.
+
+  <Expandable title="MCP">
+    <ResponseField name="enabled" type="boolean">
+      Ob der Endpunkt als MCP-Tool offengelegt wird. Hat Vorrang vor der Konfiguration auf Dateiebene.
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      Der Name des MCP-Tools.
+    </ResponseField>
+
+    <ResponseField name="description" type="string">
+      Die Beschreibung des MCP-Tools.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<div id="file-level-configuration">
+  ### Konfiguration auf Dateiebene
+</div>
+
+Aktivieren Sie MCP standardmäßig für alle Endpunkte in einer OpenAPI-Spezifikationsdatei und schließen Sie Endpunkte selektiv aus:
+
+```json
+{
+  "openapi": "3.1.0",
+  "x-mint": {
+    "mcp": {
+      "enabled": true
+    }
+  },
+  // ...
+  "paths": {
+    "/api/v1/users": {
+      "get": {
+        "x-mint": {
+          "mcp": {
+            "enabled": false // Deaktiviert MCP für diesen Endpunkt
+          }
+        },
+        // ...
+      }
+    }
+  }
+}
+```
+
+<div id="endpoint-level-configuration">
+  ### Konfiguration auf Endpunktebene
+</div>
+
+Aktivieren Sie MCP für bestimmte Endpunkte:
+
+```json
+{
+  "paths": {
+    "/api/v1/users": {
+      "get": {
+        "x-mint": {
+          "mcp": {
+            "enabled": true,
+            "name": "get-users",
+            "description": "Liste von Benutzern abrufen"
+          },
+          // ...
+        }
+      }
+    },
+    "/api/v1/delete": {
+      "delete": {
+        // Kein `x-mint: mcp`, daher wird dieser Endpunkt nicht als MCP-Tool offengelegt
+        // ...
+      }
+    }
+  }
+}
+```
+
+<div id="using-your-mcp-server">
+  ## Verwendung Ihres MCP-Servers
+</div>
+
+Ihre Nutzer müssen Ihren MCP-Server mit ihren bevorzugten KI-Tools verbinden.
+
+1. Stellen Sie die URL Ihres MCP-Servers öffentlich bereit.
+2. Nutzer kopieren die URL Ihres MCP-Servers und fügen sie ihren Tools hinzu.
+3. Nutzer greifen über ihre Tools auf Ihre Dokumentation und API-Endpunkte zu.
+
+Hier sind einige Möglichkeiten, wie Sie Ihren Nutzern beim Verbinden mit Ihrem MCP-Server helfen können:
+
+<Tabs>
+  <Tab title="Kontextmenü">
+    Fügen Sie Optionen im [Kontextmenü](/de/ai/contextual-menu) hinzu, damit Ihre Nutzer von jeder Seite Ihrer Dokumentation aus eine Verbindung zu Ihrem MCP-Server herstellen können.
+
+    | Option | Bezeichner | Beschreibung |
+    | :----- | :--------- | :---------- |
+    | **MCP-Server-URL kopieren** | `mcp` | Kopiert Ihre MCP-Server-URL in die Zwischenablage des Nutzers. |
+    | **Mit Cursor verbinden** | `cursor` | Installiert Ihren MCP-Server in Cursor. |
+    | **Mit VS Code verbinden** | `vscode` | Installiert Ihren MCP-Server in VS Code. |
+  </Tab>
+
+  <Tab title="Claude">
+    <Steps>
+      <Step title="Rufen Sie Ihre MCP-Server-URL ab.">
+        Navigieren Sie zu Ihrem [Dashboard](https://dashboard.mintlify.com/products/mcp) und finden Sie Ihre MCP-Server-URL.
+      </Step>
+
+      <Step title="Veröffentlichen Sie Ihre MCP-Server-URL für Ihre Nutzer.">
+        Erstellen Sie einen Leitfaden für Ihre Nutzer, der Ihre MCP-Server-URL und die Schritte zur Verbindung mit Claude enthält.
+
+        1. Navigieren Sie in den Claude-Einstellungen zur Seite [Connectors](https://claude.ai/settings/connectors).
+        2. Wählen Sie **Add custom connector**.
+        3. Fügen Sie den Namen und die URL Ihres MCP-Servers hinzu.
+        4. Wählen Sie **Add**.
+        5. Klicken Sie bei der Nutzung von Claude auf die Schaltfläche für Anhänge (das Plus-Symbol).
+        6. Wählen Sie Ihren MCP-Server aus.
+      </Step>
+    </Steps>
+
+    Weitere Details finden Sie in der [Model Context Protocol-Dokumentation](https://modelcontextprotocol.io/docs/tutorials/use-remote-mcp-server#connecting-to-a-remote-mcp-server).
+  </Tab>
+
+  <Tab title="Claude Code">
+    <Steps>
+      <Step title="Rufen Sie Ihre MCP-Server-URL ab.">
+        Navigieren Sie zu Ihrem [Dashboard](https://dashboard.mintlify.com/products/mcp) und finden Sie Ihre MCP-Server-URL.
+      </Step>
+
+      <Step title="Veröffentlichen Sie Ihre MCP-Server-URL für Ihre Nutzer.">
+        Erstellen Sie einen Leitfaden für Ihre Nutzer, der Ihre MCP-Server-URL und den Befehl zum Verbinden mit Claude Code enthält.
+
+        ```bash
+        claude mcp add --transport http <name> <url>
+        ```
+      </Step>
+    </Steps>
+
+    Weitere Details finden Sie in der [Claude Code-Dokumentation](https://docs.anthropic.com/en/docs/claude-code/mcp#installing-mcp-servers).
+  </Tab>
+
+  <Tab title="Cursor">
+    <Steps>
+      <Step title="Rufen Sie Ihre MCP-Server-URL ab.">
+        Navigieren Sie zu Ihrem [Dashboard](https://dashboard.mintlify.com/products/mcp) und finden Sie Ihre MCP-Server-URL.
+      </Step>
+
+      <Step title="Veröffentlichen Sie Ihre MCP-Server-URL für Ihre Nutzer.">
+        Erstellen Sie einen Leitfaden für Ihre Nutzer, der Ihre MCP-Server-URL und die Schritte zur Verbindung mit Cursor enthält.
+
+        1. Verwenden Sie <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> unter Windows), um die Befehlspalette zu öffnen.
+        2. Suchen Sie nach "Open MCP settings".
+        3. Wählen Sie **Add custom MCP**. Dadurch wird die Datei `mcp.json` geöffnet.
+        4. Konfigurieren Sie in `mcp.json` Ihren Server:
+
+        ```json
+        {
+          "mcpServers": {
+            "<your-mcp-server-name>": {
+              "url": "<your-mcp-server-url>"
+            }
+          }
+        }
+        ```
+      </Step>
+    </Steps>
+
+    Weitere Details finden Sie in der [Cursor-Dokumentation](https://docs.cursor.com/en/context/mcp#installing-mcp-servers).
+  </Tab>
+
+  <Tab title="VS Code">
+    <Steps>
+      <Step title="Rufen Sie Ihre MCP-Server-URL ab.">
+        Navigieren Sie zu Ihrem [Dashboard](https://dashboard.mintlify.com/products/mcp) und finden Sie Ihre MCP-Server-URL.
+      </Step>
+
+      <Step title="Veröffentlichen Sie Ihre MCP-Server-URL für Ihre Nutzer.">
+        Erstellen Sie einen Leitfaden für Ihre Nutzer, der Ihre MCP-Server-URL und die Schritte zur Verbindung mit VS Code enthält.
+
+        1. Erstellen Sie die Datei `.vscode/mcp.json`.
+        2. Konfigurieren Sie in `mcp.json` Ihren Server:
+
+        ```json
+        {
+          "servers": {
+            "<your-mcp-server-name>": {
+              "type": "http",
+              "url": "<your-mcp-server-url>"
+            }
+          }
+        }
+        ```
+      </Step>
+    </Steps>
+
+    Weitere Details finden Sie in der [VS Code-Dokumentation](https://code.visualstudio.com/docs/copilot/chat/mcp-servers).
+  </Tab>
+</Tabs>
+
+<div id="example-connecting-to-the-mintlify-mcp-server">
+  ### Beispiel: Verbindung mit dem Mintlify MCP-Server
+</div>
+
+Stelle eine Verbindung mit dem Mintlify MCP-Server her, um mit der Mintlify API zu interagieren und unsere Dokumentation zu durchsuchen. So erhältst du präzisere Antworten zur Nutzung von Mintlify in deiner lokalen Umgebung und siehst, wie du deinen Nutzer:innen beim Verbinden mit deinem MCP-Server helfen kannst.
+
+<Tabs>
+  <Tab title="Kontextmenü">
+    Wähle oben auf dieser Seite das Kontextmenü und dann **Mit Cursor verbinden** oder **Mit VS Code verbinden**, um den Mintlify MCP-Server mit der IDE deiner Wahl zu verbinden.
+  </Tab>
+
+  <Tab title="Claude">
+    So verwendest du den Mintlify MCP-Server mit Claude:
+
+    <Steps>
+      <Step title="Mintlify MCP-Server zu Claude hinzufügen">
+        1. Navigiere in den Claude-Einstellungen zur Seite [Connectors](https://claude.ai/settings/connectors).
+        2. Wähle **Add custom connector**.
+        3. Füge den Mintlify MCP-Server hinzu:
+
+        - Name: `Mintlify`
+        - URL: `https://mintlify.com/docs/mcp`
+
+        4. Wähle **Add**.
+      </Step>
+
+      <Step title="Im Chat auf den MCP-Server zugreifen">
+        1. Wähle in Claude die Schaltfläche für Anhänge (das Plus-Symbol).
+        2. Wähle den Mintlify MCP-Server.
+        3. Stelle Claude eine Frage zu Mintlify.
+      </Step>
+    </Steps>
+
+    Siehe die [Model Context Protocol-Dokumentation](https://modelcontextprotocol.io/docs/tutorials/use-remote-mcp-server#connecting-to-a-remote-mcp-server) für weitere Details.
+  </Tab>
+
+  <Tab title="Claude Code">
+    Um den Mintlify MCP-Server mit Claude Code zu verwenden, führe den folgenden Befehl aus:
+
+    ```bash
+    claude mcp add --transport http Mintlify https://mintlify.com/docs/mcp
+    ```
+
+    Teste die Verbindung mit:
+
+    ```bash
+    claude mcp list
+    ```
+
+    Siehe die [Claude Code-Dokumentation](https://docs.anthropic.com/en/docs/claude-code/mcp#installing-mcp-servers) für weitere Details.
+  </Tab>
+
+  <Tab title="Cursor">
+    <PreviewButton href="cursor://anysphere.cursor-deeplink/mcp/install?name=mintlify&config=eyJ1cmwiOiJodHRwczovL21pbnRsaWZ5LmNvbS9kb2NzL21jcCJ9">In Cursor installieren</PreviewButton>
+
+    Um den Mintlify MCP-Server mit Cursor zu verbinden, klicke auf **In Cursor installieren**. Oder um den MCP-Server manuell zu verbinden, folge diesen Schritten:
+
+    <Steps>
+      <Step title="MCP-Einstellungen öffnen">
+        1. Verwende <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> unter Windows), um die Befehlspalette zu öffnen.
+        2. Suche nach „Open MCP settings“.
+        3. Wähle **Add custom MCP**. Dadurch wird die Datei `mcp.json` geöffnet.
+      </Step>
+
+      <Step title="Mintlify MCP-Server konfigurieren">
+        Füge in `mcp.json` Folgendes hinzu:
+
+        ```json
+        {
+          "mcpServers": {
+            "Mintlify": {
+              "url": "https://mintlify.com/docs/mcp"
+            }
+          }
+        }
+        ```
+      </Step>
+
+      <Step title="Verbindung testen">
+        Frage im Cursor-Chat: „What tools do you have available?“ Cursor sollte den Mintlify MCP-Server als verfügbares Tool anzeigen.
+      </Step>
+    </Steps>
+
+    Siehe [Installing MCP servers](https://docs.cursor.com/en/context/mcp#installing-mcp-servers) in der Cursor-Dokumentation für weitere Details.
+  </Tab>
+
+  <Tab title="VS Code">
+    <PreviewButton href="https://vscode.dev/redirect/mcp/install?name=mintlify&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmintlify.com%2Fdocs%2Fmcp%22%7D">In VS Code installieren</PreviewButton>
+
+    Um den Mintlify MCP-Server mit VS Code zu verbinden, klicke auf **In VS Code installieren**. Oder um den MCP-Server manuell zu verbinden, erstelle die Datei `.vscode/mcp.json` und füge Folgendes hinzu:
+
+    ```json
+    {
+      "servers": {
+        "Mintlify": {
+          "type": "http",
+          "url": "https://mintlify.com/docs/mcp"
+        }
+      }
+    }
+    ```
+
+    Siehe die [VS Code-Dokumentation](https://code.visualstudio.com/docs/copilot/chat/mcp-servers) für weitere Details.
+  </Tab>
+</Tabs>
+
+<div id="authentication">
+  ## Authentifizierung
+</div>
+
+Wenn Sie einen API-Endpunkt für MCP aktivieren, berücksichtigt der Server die in Ihren OpenAPI-`securitySchemes` und `securityRequirement` definierten Authentifizierungsanforderungen. Etwaige Schlüssel werden direkt vom Tool gehandhabt und weder von Mintlify gespeichert noch verarbeitet.
+
+Wenn ein Benutzer sein KI-Tool auffordert, einen geschützten Endpunkt aufzurufen, fordert das Tool in diesem Moment die erforderlichen Anmeldedaten vom Benutzer an.
+
+<div id="monitoring-your-mcp-server">
+  ## Überwachung Ihres MCP-Servers
+</div>
+
+Sie können alle verfügbaren MCP-Tools im Abschnitt **Available tools** auf der [MCP-Server-Seite](https://dashboard.mintlify.com/products/mcp) in Ihrem Dashboard einsehen.
+
+<Frame>
+  <img src="/images/mcp/mcp-server-page-light.png" alt="MCP-Dashboard mit hervorgehobener Sektion „Available tools“" class="block dark:hidden" />
+
+  <img src="/images/mcp/mcp-server-page-dark.png" alt="MCP-Dashboard mit hervorgehobener Sektion „Available tools“" class="hidden dark:block" />
+</Frame>
+
+<div id="troubleshooting">
+  ## Fehlerbehebung
+</div>
+
+<AccordionGroup>
+  <Accordion title="MCP-Server zeigt nur das Such-Tool">
+    Wenn Ihr MCP-Server trotz vorhandener OpenAPI-Spezifikation nur das Such-Tool bereitstellt:
+
+    1. Überprüfen Sie, ob Ihre OpenAPI-Spezifikation gültig und erreichbar ist.
+    2. Stellen Sie sicher, dass Sie MCP für bestimmte Endpunkte explizit mit `x-mint.mcp.enabled: true` aktiviert haben.
+    3. Prüfen Sie Ihre Deployments-Logs auf Fehler bei der OpenAPI-Verarbeitung.
+
+    Wenn die OpenAPI-Verarbeitung fehlschlägt, läuft der Server zur Aufrechterhaltung der Funktionalität nur mit dem Such-Tool weiter.
+  </Accordion>
+
+  <Accordion title="Probleme mit der Authentifizierung">
+    Wenn Nutzer Probleme mit der Authentifizierung melden:
+
+    1. Prüfen Sie, ob Ihre OpenAPI-Spezifikation korrekte `securitySchemes`-Definitionen enthält.
+    2. Vergewissern Sie sich, dass aktivierte Endpunkte mit den angegebenen Authentifizierungsmethoden funktionieren.
+  </Accordion>
+
+  <Accordion title="Toolbeschreibungen fehlen oder sind unklar">
+    Wenn KI-Tools Ihre API-Endpunkte nicht effektiv nutzen:
+
+    1. Fügen Sie Ihren Endpunkten detaillierte `summary`- und `description`-Felder hinzu.
+    2. Stellen Sie sicher, dass Parameternamen und -beschreibungen selbsterklärend sind.
+    3. Verwenden Sie das MCP-Dashboard, um zu prüfen, wie Ihre Endpunkte als Tools erscheinen.
+  </Accordion>
+</AccordionGroup>

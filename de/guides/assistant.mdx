@@ -1,0 +1,101 @@
+---
+title: "Assistent"
+description: "Helfen Sie Ihren Nutzer:innen, mit Ihrem Produkt erfolgreich zu sein und schneller Antworten zu finden"
+icon: "bot"
+---
+
+<Info>
+  Der Assistent ist in den [Pro- und Enterprise-Plänen](https://mintlify.com/pricing?ref=assistant) automatisch aktiviert.
+</Info>
+
+<div id="about-the-assistant">
+  ## Über den Assistenten
+</div>
+
+Der Assistent beantwortet Fragen zu Ihrer Dokumentation in natürlicher Sprache. Er ist direkt in Ihre Dokumentationsseite eingebettet und bietet Nutzenden sofortigen Zugriff auf kontextbezogene Hilfe.
+
+Der Assistent nutzt agentisches RAG (Retrieval-Augmented Generation) mit Tool-Aufrufen, betrieben von Claude Sonnet 4. Wenn Nutzende Fragen stellen, tut der Assistent Folgendes:
+
+- **Sucht und ruft** relevante Inhalte aus Ihrer Dokumentation ab, um präzise Antworten zu liefern.
+- **Zitiert Quellen** und stellt anklickbare Links bereit, die direkt zu den referenzierten Seiten führen.
+- **Generiert kopierbare Codebeispiele**, um bei der Umsetzung von Lösungen aus Ihrer Dokumentation zu unterstützen.
+
+Über Ihr Dashboard können Sie die Nutzung des Assistenten einsehen, um das Verhalten der Nutzenden und die Wirksamkeit der Dokumentation zu verstehen. Exportieren und analysieren Sie Abfragedaten, um Folgendes zu identifizieren:
+
+- Häufig gestellte Fragen, die eine bessere Abdeckung benötigen.
+- Inhaltslücken, bei denen Nutzende Schwierigkeiten haben, Antworten zu finden.
+- Beliebte Themen, die von zusätzlichen Inhalten profitieren könnten.
+
+<div id="using-the-assistant">
+  ## Verwendung des Assistenten
+</div>
+
+Nutzende können auf zwei Arten auf den Assistenten zugreifen:
+
+- **Tastenkombination**: <kbd>Command</kbd> + <kbd>I</kbd> (<kbd>Strg</kbd> + <kbd>I</kbd> unter Windows)
+- **Assistent-Schaltfläche** neben der Suchleiste
+  <img
+    src="/images/assistant/assistant-button-light.png"
+    className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="Suchleiste und Assistent-Schaltfläche im hellen Modus."
+  />
+  <img
+    src="/images/assistant/assistant-button-dark.png"
+    className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+    style={{
+    width: '268px',
+    height: 'auto',
+  }}
+    alt="Suchleiste und Assistent-Schaltfläche im dunklen Modus."
+  />
+
+Beide Methoden öffnen ein Chat-Panel auf der rechten Seite Ihrer Doku. Nutzende können beliebige Fragen stellen, und der Assistent durchsucht Ihre Dokumentation nach Antworten. Wenn keine relevanten Informationen gefunden werden, teilt der Assistent mit, dass er die Frage nicht beantworten kann.
+
+<div id="making-content-ai-ingestible">
+  ## Inhalte KI-gerecht aufbereiten
+</div>
+
+Strukturieren Sie Ihre Dokumentation, damit der Assistent genaue und relevante Antworten liefern kann. Eine klare Struktur und umfassender Kontext helfen sowohl menschlichen Leserinnen und Lesern als auch dem KI-Verständnis.
+
+<Card title="Struktur und Organisation">
+  - Verwenden Sie semantisches Markup.
+  - Schreiben Sie aussagekräftige Abschnittsüberschriften.
+  - Bauen Sie eine logische Informationshierarchie auf.
+  - Nutzen Sie konsistente Formatierung in Ihrer Dokumentation.
+  - Ergänzen Sie umfangreiche Metadaten im Frontmatter der Seite.
+  - Gliedern Sie lange Textblöcke in kürzere Absätze.
+</Card>
+
+<Card title="Kontext">
+  - Definieren Sie Fachbegriffe und Akronyme bei ihrer ersten Erwähnung.
+  - Stellen Sie ausreichend konzeptionelle Inhalte zu Funktionen und Abläufen bereit.
+  - Fügen Sie Beispiele und Anwendungsfälle hinzu.
+  - Verweisen Sie auf verwandte Themen.
+  - Ergänzen Sie [versteckte Seiten](/de/guides/hidden-pages) mit zusätzlichem Kontext, den Nutzerinnen und Nutzer nicht benötigen, auf den der Assistent aber zurückgreifen kann.
+</Card>
+
+<div id="exporting-and-analyzing-queries">
+  ## Abfragen exportieren und analysieren
+</div>
+
+Überprüfen und exportieren Sie Abfragen aus Ihrem Dashboard, um zu verstehen, wie Nutzende mit Ihrer Dokumentation interagieren und um Verbesserungsmöglichkeiten zu identifizieren. So kann Ihnen die Analyse von Abfragen helfen, Ihre Dokumentation zu verbessern:
+
+- Ermitteln Sie Inhaltslücken, bei denen häufige Abfragen unzureichend beantwortet werden.
+- Entdecken Sie Verhaltensmuster und wiederkehrende Informationsbedürfnisse anhand von Themen und Mustern in den Abfragen.
+- Priorisieren Sie Seiten mit hohem Traffic für Verbesserungen in Genauigkeit und Qualität.
+
+Sie können Abfragen in Ihrem [Dashboard](https://dashboard.mintlify.com/products/assistant) untersuchen. Für tiefere Einblicke empfehlen wir jedoch, eine `CSV`-Datei mit Ihren Abfragen, Antworten und Quellen zu exportieren und sie mit Ihrem bevorzugten KI-Tool zu analysieren.
+
+1. Navigieren Sie in Ihrem Dashboard zur [Assistent-Seite](https://dashboard.mintlify.com/products/assistant).
+2. Wählen Sie **Export to CSV**.
+3. Analysieren Sie die exportierten Daten mit Ihrem bevorzugten Tool.
+
+<Card title="Beispiel-Prompts für Analysen">
+  - Fassen Sie die häufigsten Themen der Abfragen zusammen.
+  - Listen Sie alle Abfragen auf, bei denen keine Quellen zitiert wurden.
+  - Finden Sie Muster in erfolglosen Interaktionen.
+</Card>
