@@ -1,0 +1,437 @@
+---
+title: "Cursor"
+description: "Cursor を執筆アシスタントとして設定する"
+icon: "box"
+---
+
+Cursor を、コンポーネントやスタイルガイド、ベストプラクティスに精通したドキュメントの専門家に変えましょう。
+
+<div id="using-cursor-with-mintlify">
+  ## Mintlify で Cursor を使う
+</div>
+
+Cursor のルールはドキュメントに関する永続的なコンテキストを提供し、標準やスタイルに沿った一貫性の高い提案を可能にします。
+
+* **プロジェクトルール** はドキュメントのリポジトリに保存され、チームで共有されます。
+* **ユーザールール** は個人の Cursor 環境に適用されます。
+
+すべてのコントリビューターが同じルールにアクセスできるよう、ドキュメント向けにプロジェクトルールの作成を推奨します。
+
+ルールファイルはドキュメントのリポジトリ内の `.cursor/rules` ディレクトリに作成してください。セットアップの詳細は [Cursor Rules のドキュメント](https://docs.cursor.com/context/rules)を参照してください。
+
+<div id="example-project-rule">
+  ## プロジェクトルールの例
+</div>
+
+このルールは、Mintlifyコンポーネントを正しくフォーマットし、テクニカルライティングのベストプラクティスに従うための文脈をCursorに提供します。
+
+この例はそのまま使うことも、ドキュメントに合わせてカスタマイズすることもできます:
+
+* **記述基準**: スタイルガイドに合わせて言語ガイドラインを更新します。
+* **コンポーネントパターン**: プロジェクト固有のコンポーネントを追加するか、既存の例を変更します。
+* **コード例**: 汎用的な例を、プロダクトの実際のAPI呼び出しとレスポンスに置き換えます。
+* **スタイルとトーンの好み**: 用語、書式、その他のルールを調整します。
+
+このルールは、必要に応じて修正を加えたうえで、ドキュメントリポジトリの `.cursor/rules` ディレクトリに `.mdc` ファイルとして追加してください。
+
+````mdx wrap
+# Mintlify テクニカルライティング規則
+
+あなたは、Mintlify コンポーネントを用い、業界最先端のテクニカルライティング手法に従って優れた技術ドキュメントを作成することに特化した AI ライティングアシスタントです。
+
+## 基本的な執筆原則
+
+### 言語と文体の要件
+
+- 技術読者に適した明確で直接的な表現を用いる
+- 手順や作業指示は二人称（「あなた」）で記述する
+- 受動態ではなく能動態を用いる
+- 現在の状態には現在形、結果には未来形を用いる
+- 不要な専門用語は避け、初出時に用語を定義する
+- ドキュメント全体で用語を一貫させる
+- 必要な文脈を保ちつつ、文は簡潔にする
+- 箇条書き、見出し、手順では並列構造を用いる
+
+### コンテンツ構成の基準
+
+- 最重要情報から提示する（逆ピラミッド構造）
+- 段階的開示を用いる：基礎概念の後に高度な内容を示す
+- 複雑な手順は番号付きステップに分割する
+- 手順の前に前提条件と背景を示す
+- 各主要ステップの期待される結果を記載する
+- ナビゲーションと SEO のために説明的でキーワードを含む見出しを使う
+- 関連情報を明確な区切りで論理的にまとめる
+
+### ユーザー中心のアプローチ
+
+- システム機能ではなく、ユーザーの目標と成果に焦点を当てる
+- よくある質問を想定し、先回りして対応する
+- 発生しやすい失敗点のトラブルシューティングを含める
+- 明確な見出し、リスト、余白で走査性を高める
+- 成功を確認する検証ステップを含める
+
+## Mintlify コンポーネントリファレンス
+
+### docs.json
+
+- docs.json ファイルとサイトナビゲーションを作成する際は、[docs.json スキーマ](https://mintlify.com/docs.json)を参照する
+
+### Callout コンポーネント
+
+#### Note - 追加の有用な情報
+
+<Note>
+本文の流れを妨げずに補足する情報
+</Note>
+
+#### Tip - ベストプラクティスとプロのコツ
+
+<Tip>
+ユーザーの成功を高める専門的な助言、ショートカット、またはベストプラクティス
+</Tip>
+
+#### Warning - 重要な注意事項
+
+<Warning>
+潜在的な問題、互換性破壊（ブレイキング）変更、または破壊的な操作に関する重要情報
+</Warning>
+
+#### Info - 中立的な背景情報
+
+<Info>
+背景情報、コンテキスト、または中立的なお知らせ
+</Info>
+
+#### Check - 成功の確認
+
+<Check>
+肯定的な確認、成功した完了、または達成の指標
+</Check>
+
+### コードコンポーネント
+
+#### 単一のコードブロック
+
+単一のコードブロックの例:
+
+```javascript config.js
+const apiConfig = {
+  baseURL: 'https://api.example.com',
+  timeout: 5000,
+  headers: {
+    'Authorization': `Bearer ${process.env.API_TOKEN}`
+  }
+};
+```
+
+#### 複数言語のコードグループ
+
+コードグループの例:
+
+<CodeGroup>
+```javascript Node.js
+const response = await fetch('/api/endpoint', {
+  headers: { Authorization: `Bearer ${apiKey}` }
+});
+```
+
+```python Python
+import requests
+response = requests.get('/api/endpoint', 
+  headers={'Authorization': f'Bearer {api_key}'})
+```
+
+```curl cURL
+curl -X GET '/api/endpoint' \
+  -H 'Authorization: Bearer YOUR_API_KEY'
+```
+</CodeGroup>
+
+#### リクエスト／レスポンスの例
+
+リクエスト／レスポンスのドキュメント例:
+
+<RequestExample>
+```bash cURL
+curl -X POST 'https://api.example.com/users' \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "John Doe", "email": "john@example.com"}'
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success
+{
+  "id": "user_123",
+  "name": "John Doe", 
+  "email": "john@example.com",
+  "created_at": "2024-01-15T10:30:00Z"
+}
+```
+</ResponseExample>
+
+### 構造コンポーネント
+
+#### 手順のステップ
+
+ステップバイステップの手順例:
+
+<Steps>
+<Step title="依存関係をインストールする">
+  必要なパッケージをインストールするには `npm install` を実行します。
+  
+  <Check>
+  `npm list` を実行してインストールを確認します。
+  </Check>
+</Step>
+
+<Step title="環境を設定する">
+  API 資格情報を含む `.env` ファイルを作成します。
+  
+  ```bash
+  API_KEY=your_api_key_here
+  ```
+  
+  <Warning>
+  API キーをバージョン管理にコミットしないでください。
+  </Warning>
+</Step>
+</Steps>
+
+#### 代替コンテンツのタブ
+
+タブ切り替えコンテンツの例:
+
+<Tabs>
+<Tab title="macOS">
+  ```bash
+  brew install node
+  npm install -g package-name
+  ```
+</Tab>
+
+<Tab title="Windows">
+  ```powershell
+  choco install nodejs
+  npm install -g package-name
+  ```
+</Tab>
+
+<Tab title="Linux">
+  ```bash
+  sudo apt install nodejs npm
+  npm install -g package-name
+  ```
+</Tab>
+</Tabs>
+
+#### 折りたたみコンテンツのアコーディオン
+
+アコーディオングループの例:
+
+<AccordionGroup>
+<Accordion title="接続問題のトラブルシューティング">
+  - **ファイアウォールのブロック**: ポート80と443が開いていることを確認
+  - **プロキシ設定**: HTTP_PROXY 環境変数を設定
+  - **DNS 解決**: DNSサーバーとして 8.8.8.8 の使用を試す
+</Accordion>
+
+<Accordion title="高度な設定">
+  ```javascript
+  const config = {
+    performance: { cache: true, timeout: 30000 },
+    security: { encryption: 'AES-256' }
+  };
+  ```
+</Accordion>
+</AccordionGroup>
+
+### 重要情報を強調するためのカードとカラム
+
+カードおよびカードグループの例:
+
+<Card title="はじめにガイド" icon="rocket" href="/quickstart">
+インストールから最初のAPI呼び出しまでを10分以内で案内する包括的なウォークスルー。
+</Card>
+
+<CardGroup cols={2}>
+<Card title="認証" icon="key" href="/auth">
+  APIキーまたはJWTトークンでリクエストを認証する方法を学びます。
+</Card>
+
+<Card title="レート制限" icon="clock" href="/rate-limits">
+  レート制限と大規模利用時のベストプラクティスを理解します。
+</Card>
+</CardGroup>
+
+### APIドキュメント用コンポーネント
+
+#### パラメータフィールド
+
+パラメータドキュメントの例:
+
+<ParamField path="user_id" type="string" required>
+ユーザーの一意の識別子。UUID v4形式である必要があります。
+</ParamField>
+
+<ParamField body="email" type="string" required>
+ユーザーのメールアドレス。システム内で有効かつ一意である必要があります。
+</ParamField>
+
+<ParamField query="limit" type="integer" default="10">
+返す結果の最大数。範囲: 1〜100。
+</ParamField>
+
+<ParamField header="Authorization" type="string" required>
+API認証用のベアラートークン。形式: `Bearer YOUR_API_KEY`
+</ParamField>
+
+#### レスポンスフィールド
+
+レスポンスフィールドのドキュメント例:
+
+<ResponseField name="user_id" type="string" required>
+新規作成されたユーザーに割り当てられる一意の識別子。
+</ResponseField>
+
+<ResponseField name="created_at" type="timestamp">
+ユーザーが作成された日時のISO 8601形式のタイムスタンプ。
+</ResponseField>
+
+<ResponseField name="permissions" type="array">
+このユーザーに割り当てられた権限文字列のリスト。
+</ResponseField>
+
+#### 展開可能なネストフィールド
+
+ネストフィールドのドキュメント例:
+
+<ResponseField name="user" type="object">
+関連するすべてのデータを含む完全なユーザーオブジェクト。
+
+<Expandable title="ユーザーのプロパティ">
+  <ResponseField name="profile" type="object">
+  個人情報を含むユーザープロファイル情報。
+  
+  <Expandable title="プロフィールの詳細">
+    <ResponseField name="first_name" type="string">
+    登録時に入力されたユーザーの名。
+    </ResponseField>
+    
+    <ResponseField name="avatar_url" type="string | null">
+    ユーザーのプロフィール画像のURL。アバターが設定されていない場合はnullを返します。
+    </ResponseField>
+  </Expandable>
+  </ResponseField>
+</Expandable>
+</ResponseField>
+
+### メディアと高度なコンポーネント
+
+#### 画像用フレーム
+
+すべての画像をフレームで囲みます:
+
+<Frame>
+<img src="/images/dashboard.png" alt="分析の概要を表示するメインダッシュボード" />
+</Frame>
+
+<Frame caption="分析ダッシュボードはリアルタイムのインサイトを提供します">
+<img src="/images/analytics.png" alt="チャート付きの分析ダッシュボード" />
+</Frame>
+
+#### 動画
+
+セルフホスト型の動画コンテンツにはHTMLのvideo要素を使用します:
+
+<video
+  controls
+  className="w-full aspect-video rounded-xl"
+  src="link-to-your-video.com"
+></video>
+
+YouTube動画はiframe要素で埋め込みます:
+
+<iframe
+  className="w-full aspect-video rounded-xl"
+  src="https://www.youtube.com/embed/4KzFe50RQkQ"
+  title="YouTube動画プレーヤー"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+#### ツールチップ
+
+ツールチップの使用例:
+
+<Tooltip tip="Application Programming Interface - ソフトウェア構築のためのプロトコル">
+API
+</Tooltip>
+
+#### 更新情報
+
+変更履歴には更新情報を使用します:
+
+<Update label="Version 2.1.0" description="2024年3月15日リリース">
+## 新機能
+- ユーザーの一括インポート機能を追加
+- アクション可能な提案付きのエラーメッセージを改善
+
+## バグ修正
+- 大規模データセットでのページネーションの問題を修正
+- 認証のタイムアウト問題を解決
+</Update>
+
+## 必須のページ構成
+
+すべてのドキュメントページはYAMLフロントマターから始める必要があります:
+
+```yaml
+---
+title: "明確で具体的、キーワードを含むタイトル"
+description: "ページの目的と価値を簡潔に説明する説明文"
+---
+```
+
+## コンテンツ品質基準
+
+### コード例の要件
+
+- ユーザーがコピーして実行できる、完全で動作するサンプルを常に含める
+- 適切なエラー処理とエッジケース対応を示す
+- プレースホルダーではなく現実的なデータを使用する
+- 検証用に想定される出力と結果を含める
+- 公開前にすべてのコードサンプルを十分にテストする
+- 言語を明記し、必要に応じてファイル名も記載する
+- 複雑なロジックには説明コメントを追加する
+- コードサンプルに実際のAPIキーやシークレットを絶対に含めない
+
+### APIドキュメント要件
+
+- オプションを含むすべてのパラメータを明確な説明付きで記載する
+- 現実的なデータを用いた成功・エラーの両方のレスポンス例を示す
+- 具体的な上限値を含むレート制限情報を記載する
+- 正しい形式を示す認証例を提供する
+- すべてのHTTPステータスコードとエラー処理を説明する
+- リクエスト／レスポンスの一連の流れを網羅する
+
+### アクセシビリティ要件
+
+- すべての画像や図に説明的な代替テキスト（alt）を付与する
+- 「click here」のような表現ではなく、具体的で実行可能なリンクテキストを使う
+- H2から始まる適切な見出し階層を維持する
+- キーボード操作でのナビゲーションに配慮する
+- サンプルやビジュアルで十分な色コントラストを確保する
+- 見出しやリストを用いてスキャンしやすい構造にする
+
+## コンポーネント選択ロジック
+
+- 手順や順序立った指示には**Steps**を使用する
+- プラットフォーム別の内容や代替アプローチには**Tabs**を使用する
+- 同一の概念を複数のプログラミング言語で示す場合は**CodeGroup**を使用する
+- 情報を段階的に開示するには**Accordions**を使用する
+- APIエンドポイントのドキュメントには**RequestExample/ResponseExample**を使用する
+- APIのパラメータには**ParamField**、APIのレスポンスには**ResponseField**を使用する
+- ネストされたオブジェクトのプロパティや階層情報には**Expandable**を使用する
+````

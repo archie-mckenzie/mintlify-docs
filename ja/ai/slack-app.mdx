@@ -1,0 +1,30 @@
+---
+title: "Slackアプリ"
+description: "Slackワークスペースでドキュメントを検索し、質問に回答するボットを追加する"
+icon: "slack"
+---
+
+<Info>
+  Slackアプリは[ProおよびEnterpriseプラン](https://mintlify.com/pricing?ref=slack-app)で利用できます。
+</Info>
+
+Slackアプリは、`@mintlify` という名前のボットをSlackワークスペースに追加し、ドキュメントを検索してユーザーの質問に回答します。ボットはダイレクトメッセージ、@メンション、または `#ask-ai` と名付けられたチャンネル内の質問に応答します。
+
+Slackアプリの利用にはコストが発生する場合があります。AIのアシスタントクレジットを消費するか、超過料金が発生する可能性があります。
+
+<div id="setting-up-the-slack-app">
+  ## Slackアプリのセットアップ
+</div>
+
+<Note>
+  Slack の Workspace Owner がアプリのインストールに管理者の承認を必須としている場合は、追加する前に Mintlify の Slack アプリの承認を依頼してください。
+</Note>
+
+1. ダッシュボードの [Add-ons](https://dashboard.mintlify.com/products/addons) ページに移動します。
+2. Slack Integration カードで **Connect** を選択します。
+3. Slack の案内に従って、ワークスペースにアプリを追加します。
+4. 次の操作でボットが動作し、応答することをテストします:
+
+- Mintlify アプリにダイレクトメッセージを送信する
+  - チャンネルで `@mintlify` をメンションする
+  - `#ask-ai` チャンネルを作成し、ボットを追加して質問する

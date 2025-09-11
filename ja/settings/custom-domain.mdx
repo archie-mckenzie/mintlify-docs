@@ -1,0 +1,55 @@
+---
+title: "カスタムドメイン"
+description: "自社サイトのカスタムドメインでドキュメントをホストする"
+icon: "globe"
+---
+
+ドキュメントをカスタムドメインで公開するには、Mintlify の設定で希望のカスタムドメインを指定し、ドメインプロバイダーで DNS を設定します。
+
+<Info>
+  `mintlify.com/docs` のようなカスタムサブディレクトリを設定しますか？[カスタムサブディレクトリ](/ja/advanced/subpath/cloudflare)のドキュメントをご覧ください。
+</Info>
+
+<div id="dashboard-settings">
+  ## ダッシュボードの設定
+</div>
+
+1. [ダッシュボード](https://dashboard.mintlify.com)にアクセスします
+2. **Settings** を選択します
+3. **Domain Setup** を選択します
+4. 希望するカスタムドメインを入力します（例: `docs.mintlify.com`）
+
+<Frame>
+  <img alt="カスタムドメイン" className="block dark:hidden" src="/images/add-custom-domain-light.png" />
+
+  <img alt="カスタムドメイン" className="hidden dark:block" src="/images/add-custom-domain-dark.png" />
+</Frame>
+
+<div id="configuring-your-dns">
+  ## DNS の設定
+</div>
+
+1. ドメインプロバイダーのサイトで、対象ドメインの DNS 設定ページに移動します。
+2. 次の値を入力して、新しい DNS レコードを作成します:
+
+```bash
+CNAME | docs | cname.vercel-dns.com.
+```
+
+<Frame>
+  <img alt="DNS" src="https://mintlify-assets.b-cdn.net/mintlify-dns.png" />
+</Frame>
+
+<div id="provider-specific-settings">
+  ## プロバイダー別設定
+</div>
+
+<AccordionGroup>
+  <Accordion title="Vercel verification">
+    ドメインプロバイダーとしてVercelを使用している場合は、検証用の `TXT` レコードを追加する必要があります。カスタムドメインを送信すると、この情報がダッシュボードに表示され、メールでも送信されます。
+  </Accordion>
+
+  <Accordion title="Cloudflare security settings">
+    DNSプロバイダーとしてCloudflareを使用している場合は、HTTPS設定で「Full (strict)」のセキュリティオプションを有効にする必要があります。
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,123 @@
+---
+title: "GEO ガイド：AI検索・回答エンジン向けにドキュメントを最適化する"
+sidebarTitle: "GEO"
+description: "ドキュメントの発見性を高め、AIツールでの引用頻度を増やす"
+icon: "cpu"
+---
+
+ChatGPT、Perplexity、Google AI Overviews などのAI搭載回答エンジンと、従来の検索エンジンの両方に向けてドキュメントを最適化しましょう。
+
+Generative Engine Optimization（GEO）は、包括的なコンテンツと構造化情報によりAIシステムでの引用を狙うアプローチであり、従来のSEOは検索結果の順位向上を目的とします。
+
+<div id="geo-quickstart">
+  ## GEO クイックスタート
+</div>
+
+<div id="initial-setup">
+  ### 初期セットアップ
+</div>
+
+1. `docs.json` の設定で**ドキュメントがインデックス対象になっていることを確認**する
+2. **既存ページをレビュー**し、説明文やタイトルの不足を確認する
+
+<div id="content-improvements">
+  ### コンテンツの改善
+</div>
+
+1. 適切なページに**比較表を追加する**
+2. **見出しを見直し**、よくある質問に答えているかを確認する
+3. 関連トピック間の**内部リンクを強化する**
+4. **AIツールでテスト**し、正確性を検証する
+
+<div id="geo-best-practices">
+  ## GEO のベストプラクティス
+</div>
+
+一般に、よく書かれ、構造化されたドキュメントはGEOが強くなります。最優先すべきは常にユーザーのための執筆であり、コンテンツがユーザーのニーズを満たしていれば、AIツール向けの最適化にも自然とつながります。単なる最適化のための最適化ではなく、本当に役立つコンテンツの作成は、従来型とAIの両方の検索エンジンに評価されます。
+
+注力すべき点:
+
+- キーワードの一致ではなくユーザーのニーズに沿ったコンテンツ
+- 構造化され、素早く把握できる情報
+- 質問に対する直接的な回答
+
+<div id="format-for-clarity">
+  ### 明確さのためのフォーマット
+</div>
+
+これらのフォーマット手法は、AIツールがコンテンツを解析・理解するのに役立ちます:
+
+- 見出しレベルを飛ばさない（H1 → H2 → H3）
+- 「it」や「this」ではなく、具体的なオブジェクト名を用いる
+- コードブロックに対応するプログラミング言語を指定する
+- 画像に説明的な alt テキストを付ける
+- 関連する概念へリンクし、AIが関係性を理解できるようにする
+
+<div id="answer-questions-directly">
+  ### 質問に直接答える
+</div>
+
+特定のユーザーの質問に的確に応えるコンテンツを書きましょう:
+
+- セクションは要点から始める
+- よくある質問に合致するわかりやすい見出しを使う
+- 複雑なトピックは番号付きの手順に分解する
+
+<div id="mintlify-configuration">
+  ## Mintlifyの設定
+</div>
+
+これらの機能を使ってGEOを強化しましょう。
+
+<div id="add-descriptive-page-metadata">
+  ### わかりやすいページメタデータを追加する
+</div>
+
+frontmatter に明確なタイトルと説明を記載してください:
+
+```mdx
+---
+title: "API authentication guide"
+description: "Complete guide to implementing API authentication with code examples"
+---
+```
+
+<div id="configure-global-indexing-settings">
+  ### グローバルなインデックス設定を設定する
+</div>
+
+`docs.json` に次を追加します:
+
+```json
+{
+  "seo": {
+    "indexing": "all",
+    "metatags": {
+      "og:type": "website",
+      "og:site_name": "Your docs"
+    }
+  }
+}
+```
+
+<div id="llmstxt">
+  ### LLMs.txt
+</div>
+
+LLMs.txt ファイルは、サイトマップが検索エンジンを助けるのと同様に、AI システムがドキュメント構造を理解するのに役立ちます。Mintlify はドキュメント用の LLMs.txt を自動生成します。設定は不要です。
+
+<div id="testing-your-documentation">
+  ## ドキュメントのテスト
+</div>
+
+製品やドキュメントに関する質問で各種AIツールを試し、ドキュメントがどの程度正しく参照されているかを確認します。
+
+**AIアシスタントに、ドキュメントについての具体的な質問をする:**
+
+- 「このAPIで認証を設定するにはどうすればよいですか？」
+- 「インストール手順をステップごとに説明してください」
+
+**ツールが次を提供しているか確認する:**
+
+- 正確なコードサンプル
+- 正確なステップごとの手順

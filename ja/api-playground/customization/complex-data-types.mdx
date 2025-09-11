@@ -1,0 +1,101 @@
+---
+title: "複合データ型"
+description: "`oneOf`、`anyOf`、`allOf` キーワードを使って、柔軟なスキーマ、オプションのプロパティ、複数のデータ形式を持つ API を記述する"
+---
+
+API が複数のデータ形式を受け入れ、条件付きフィールドを持つ、または継承パターンを使用する場合、OpenAPI のスキーマ構成キーワードは、これらの柔軟な構造をドキュメント化するのに役立ちます。`oneOf`、`anyOf`、`allOf` を使うことで、異なる入力タイプを扱う API を表現したり、複数のスキーマを組み合わせて包括的なデータモデルを定義したりできます。
+
+<div id="oneof-anyof-allof-keywords">
+  ## `oneOf`, `anyOf`, `allOf` キーワード
+</div>
+
+複雑なデータ型に対して、OpenAPI はスキーマを組み合わせるためのキーワードを提供します：
+
+- `allOf`: 複数のスキーマを結合します（オブジェクトのマージやベーススキーマの拡張など）。`and` 演算子のように機能します。
+- `anyOf`: 提供されたスキーマのいずれかに一致するデータを受け入れます。`or` 演算子のように機能します。
+- `oneOf`: 提供されたスキーマのうちちょうど 1 つに一致するデータを受け入れます。`exclusive-or` 演算子のように機能します。
+
+<Warning>実用上の違いが API の利用に影響することはまれなため、Mintlify は `oneOf` と `anyOf` を同一に扱います。</Warning>
+
+これらのキーワードの詳細な仕様については、[OpenAPI ドキュメント](https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/)を参照してください。
+
+<Info>`not` キーワードは現在サポートされていません。</Info>
+
+<div id="combining-schemas-with-allof">
+  ### `allOf` を使ったスキーマの結合
+</div>
+
+`allOf` を使うと、Mintlify は複雑な組み合わせを読みやすく表示するために OpenAPI ドキュメントに前処理を行います。たとえば、`allOf` で 2 つのオブジェクトスキーマを組み合わせる場合、Mintlify は両方のプロパティを 1 つのオブジェクトに統合します。これは、OpenAPI の再利用可能な[components](https://swagger.io/docs/specification/components/)を活用する際に特に有用です。
+
+```yaml
+org_with_users:
+  allOf:
+    - $ref: '#/components/schemas/Org'
+    - type: object
+      properties:
+        users:
+          type: array
+          description: 組織内のすべてのユーザーを含む配列
+# ...
+components:
+  schemas:
+    Org:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 組織の ID
+```
+
+<ParamField body="org_with_users" type="object">
+  <Expandable>
+    <ParamField body="id" type="string">
+      組織の ID
+    </ParamField>
+    <ParamField body="users" type="object[]">
+      組織内のすべてのユーザーを含む配列
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<div id="providing-options-with-oneof-and-anyof">
+  ### `oneOf` と `anyOf` で選択肢を提供する
+</div>
+
+`oneOf` または `anyOf` を使用すると、選択肢はタブ付きコンテナで表示されます。各サブスキーマに `title` フィールドを指定して、選択肢に名前を付けてください。たとえば、2 種類の配送先住所を次のように表示できます:
+
+```yaml
+delivery_address:
+  oneOf:
+    - title: StreetAddress
+      type: object
+      properties:
+        address_line_1:
+          type: string
+          description: 受取人の住所（番地・町名）
+        # ...
+    - title: POBox
+      type: object
+      properties:
+        box_number:
+          type: string
+          description: 私書箱の番号
+        # ...
+```
+
+<ParamField body="delivery_address" type="object">
+  <div className="mt-4 rounded-xl border border-gray-100 px-4 pb-4 pt-2 dark:border-white/10">
+    <Tabs>
+      <Tab title="StreetAddress">
+        <ParamField body="address_line_1" type="string">
+          住居の住所（番地・町名）
+        </ParamField>
+      </Tab>
+      <Tab title="POBox">
+        <ParamField body="box_number" type="string">
+          私書箱の番号
+        </ParamField>
+      </Tab>
+    </Tabs>
+  </div>
+</ParamField>

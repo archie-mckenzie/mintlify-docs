@@ -1,0 +1,79 @@
+---
+title: "変更の公開"
+description: "ドキュメントの更新を本番環境へ直接、またはプルリクエスト経由でデプロイします"
+---
+
+変更の公開方法は、作業中のブランチによって異なります：
+
+* **デプロイブランチ**: 公開するとライブサイトが即時に更新されます。
+* **その他のブランチ**: 公開するとプルリクエストが作成され、本番環境にデプロイする前に変更をレビューできます。
+
+<Frame>
+  <img 
+    src="/images/editor/publish-flow-light.png" 
+    alt="Mintlify Webエディターで強調表示された公開ボタン" 
+    className="block dark:hidden" 
+  />
+  <img 
+    src="/images/editor/publish-flow-dark.png" 
+    alt="Mintlify Webエディターで強調表示された公開ボタン" 
+    className="hidden dark:block" 
+  />
+</Frame>
+
+<div id="pull-requests-and-reviewing-changes">
+  ## プルリクエストと変更のレビュー
+</div>
+
+プルリクエストを使うと、自分のブランチから変更を提案でき、他のメンバーが本番ドキュメントへマージする前にレビューできます。これにより変更の正確性を確保し、チームでコンテンツに協働する機会が生まれます。
+
+<Tip>
+  たとえ個人で作業していても、プルリクエストは変更のプレビューや更新履歴の明確な管理に役立ちます。
+</Tip>
+
+<div id="creating-a-pull-request">
+  ### プルリクエストの作成
+</div>
+
+<Steps>
+  <Step title="作業内容を保存する">
+    **Save Changes** を使って、すべての変更がブランチに保存されていることを確認します。
+  </Step>
+  <Step title="プルリクエストを作成する">
+    エディター右上の **Publish Pull Request** を選択します。
+  </Step>
+  <Step title="タイトルと説明を追加する">
+    次の点を説明する、分かりやすいタイトルと説明を書きます：
+    - 行った変更の内容
+    - その理由
+    - レビューが必要な箇所
+  </Step>
+  <Step title="作成して共有する">
+    **Publish Pull Request** を選択します。エディターから、プルリクエストを表示するためのリンクが提供されます。
+
+  <Frame>
+  <img 
+    src="/images/editor/pull-request-light.png" 
+    alt="Mintlify Webエディターで強調表示された「Publish Pull Request」ボタン" 
+    className="block dark:hidden" 
+  />
+  <img 
+    src="/images/editor/pull-request-dark.png" 
+    alt="Mintlify Webエディターで強調表示された「Publish Pull Request」ボタン" 
+    className="hidden dark:block" 
+  />
+  </Frame>
+  </Step>
+</Steps>
+
+<div id="reviewing-pull-requests">
+  ## プルリクエストのレビュー
+</div>
+
+プルリクエストを作成したら、次の手順を実行します。
+
+1. **変更を確認**: あなたとチームメンバーは、GitHub や GitLab などの Git プロバイダーでプルリクエストをレビューできます。
+2. **フィードバックを残す**: コメントを追加するか、変更をリクエストします。
+3. **追加の変更を行う**: Webエディターでさらに変更します。保存すると、その変更がプルリクエストにプッシュされます。
+4. **承認**: 変更に問題がなければ、プルリクエストを承認します。
+5. **マージ**: 本番環境へデプロイする準備ができたら、プルリクエストをマージします。
