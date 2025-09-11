@@ -1,0 +1,92 @@
+---
+title: "Webエディターの始め方"
+sidebarTitle: "はじめに"
+description: "Webエディターでドキュメントを作成・編集する方法を学ぶ"
+---
+
+<img className="block dark:hidden my-0 pointer-events-none" src="/images/editor/editor-light.png" alt="ライトモードのMintlify Webエディターのインターフェース" />
+
+<img className="hidden dark:block my-0 pointer-events-none" src="/images/editor/editor-dark.png" alt="ダークモードのMintlify Webエディターのインターフェース" />
+
+Webエディターは、ブラウザ上でドキュメントを作成・編集・レビューできるビジュアルインターフェースです。
+
+* **ビジュアル編集**: 公開時の見た目をそのまま確認できるWYSIWYGエディターでドキュメントを編集できます。
+* **Git同期**: すべての変更はGitリポジトリに自動的に同期され、バージョン管理を維持できます。
+* **チームでの共同作業**: 複数人が同時にドキュメントを編集できます。
+* **コンポーネントの追加**: スラッシュコマンドでコールアウト、コードブロックなどのコンポーネントを追加できます。
+* **セットアップ不要**: ダッシュボードからすぐに執筆を開始できます。
+
+<div id="web-editor-workflow">
+  ## Webエディターワークフロー
+</div>
+
+Webエディターでの一般的な作業手順は次のとおりです:
+
+<Steps>
+  <Step title="ブランチを選択する">
+    デプロイブランチに直接変更を加えるか、別ブランチを作成します。変更を本番公開前にプレビューできるよう、ブランチの作成をおすすめします。
+  </Step>
+
+  <Step title="ファイルを開く">
+    サイドバーで既存のファイルを開くか、ファイルエクスプローラーで新規作成します。
+  </Step>
+
+  <Step title="コンテンツを編集する">
+    Webエディターで編集します。右上のトグルでビジュアルモードとMarkdownモードを切り替えて、使いやすいモードを試してみてください。
+  </Step>
+
+  <Step title="変更をプレビューする">
+    ビジュアルモードでは、変更が公開サイトでどのように表示されるかを確認できます。表示に問題がないか確認しましょう。
+  </Step>
+
+  <Step title="変更を公開する">
+    デプロイブランチで作業している場合は、Webエディターから直接公開できます。その他のブランチでは、公開前にレビュー用のプルリクエストを作成します。
+  </Step>
+</Steps>
+
+<div id="editor-modes">
+  ## エディターモード
+</div>
+
+Webエディターには、編集の好みや用途に応じて選べる2つのモードがあります。エディターツールバー右上のトグルで編集モードを切り替えます。
+
+<Frame>
+  <img src="/images/editor/mode-toggle-light.png" alt="Webエディターで強調表示されたモード切り替えアイコン" className="block dark:hidden" />
+
+  <img src="/images/editor/mode-toggle-dark.png" alt="Webエディターで強調表示されたモード切り替えアイコン" className="hidden dark:block" />
+</Frame>
+
+<div id="visual-mode">
+  ### ビジュアルモード
+</div>
+
+ビジュアルモードは、エディターでの変更がそのままドキュメンテーションサイトに反映されるWYSIWYG体験を提供します。変更結果をリアルタイムで確認したい場合に最適です。
+
+`/` を押してコンポーネントメニューを開き、スタイル付きコンテンツ、コールアウト、コードスニペット、その他のコンポーネントを追加します。
+
+<Frame>
+  <img src="/images/editor/visual-mode-light.png" alt="Mintlify Webエディターのビジュアル編集モード" className="block dark:hidden" />
+
+  <img src="/images/editor/visual-mode-dark.png" alt="Mintlify Webエディターのビジュアル編集モード" className="hidden dark:block" />
+</Frame>
+
+<div id="markdown-mode">
+  ### Markdownモード
+</div>
+
+Markdownモードでは、ドキュメントを構成する `MDX` コードに直接アクセスできます。コンポーネントのプロパティを正確に制御したい場合や、Markdown構文で記述したい場合に最適です。
+
+<Frame>
+  <img src="/images/editor/markdown-mode-light.png" alt="MintlifyのWebエディターのMarkdownモード" className="block dark:hidden" />
+
+  <img src="/images/editor/markdown-mode-dark.png" alt="MintlifyのWebエディターのMarkdownモード" className="hidden dark:block" />
+</Frame>
+
+<div id="next-steps">
+  ## 次のステップ
+</div>
+
+* 基本的な[Gitの概念](/ja/editor/git-concepts)を学ぶ
+* [ブランチ](/ja/editor/branches)での共同作業におけるベストプラクティスを学ぶ
+* Webエディターでの[コンテンツ管理](/ja/editor/content-management)を学ぶ
+* さまざまなケースに応じた[公開オプション](/ja/editor/publishing)を理解する

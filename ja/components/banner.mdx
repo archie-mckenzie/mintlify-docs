@@ -1,0 +1,44 @@
+---
+title: "Banner"
+description: "重要な全体告知や通知をサイト全体に表示するバナーを追加する"
+icon: "layout-panel-top"
+---
+
+バナーを使うと、ドキュメントサイト全体で重要な告知、更新情報、通知を掲載できます。バナーは全ページの上部に表示され、Markdownの書式に対応し、閉じられる（非表示にできる）ように設定できます。
+
+バナーを追加するには、`docs.json` の `banner` プロパティを使用します:
+
+<CodeGroup>
+  ```json Product announcements wrap
+  "banner": {
+    "content": "🚀 バージョン 2.0 をリリースしました！詳しくは [changelog](/changelog) をご覧ください。",
+    "dismissible": true 
+  }
+  ```
+
+  ```json Maintenance notices wrap
+  "banner": {
+    "content": "⚠️ 計画メンテナンス: 12月15日 2:00–4:00 UTC の間、API はご利用いただけません",
+    "dismissible": false
+  }
+  ```
+
+  ```json Required actions wrap
+  "banner": {
+    "content": "**対応必須:** 1月1日までに新バージョンへ移行してください。［Migration guide］(/migration)",
+    "dismissible": true
+  }
+  ```
+</CodeGroup>
+
+<div id="properties">
+  ## プロパティ
+</div>
+
+<ResponseField name="content" type="string" required>
+  バナーのメッセージ。プレーンテキストとMarkdownの書式に対応します。
+</ResponseField>
+
+<ResponseField name="dismissible" type="boolean">
+  ユーザーがバナーを閉じられるかどうか。`true` の場合、ユーザーはバナーを閉じることができ、同一セッション内では再表示されません。既定値は `false` です。
+</ResponseField>

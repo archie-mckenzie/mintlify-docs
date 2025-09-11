@@ -1,0 +1,61 @@
+---
+title: "非表示ページの例"
+description: "非表示ページの一般的なユースケース"
+icon: "eye-off"
+---
+
+このページは非表示です。`docs.json` のナビゲーションには含まれないため、URL からのみアクセスできます。
+
+詳しくは [Hidden pages](/ja/guides/hidden-pages) を参照してください。
+
+<div id="common-use-cases-for-hidden-pages">
+  ## 非表示ページの一般的なユースケース
+</div>
+
+<Note>
+  既定では、非表示ページは公開されておりアクセス可能ですが、ナビゲーションからは見つけられません。非表示ページへのアクセスを制限したい場合は、[authentication](/ja/authentication-personalization/authentication-setup) を設定してください。
+</Note>
+
+* **ベータ版ドキュメント**: 公開は可能だが、ナビゲーションからは見つからないようにしたい情報。
+* **AIツール向けのコンテキスト**: 非表示ページがインデックス化されている場合、AIツールはコンテキストとして参照できます。ユーザーには直接関係ないが、AIツールがより正確な回答を返すのに役立つコンテキストに非表示ページを活用します。
+* **レガシーページ**: 古いコンテンツをナビゲーションメニューから外しつつ、直接リンクでのアクセスは維持する。
+* **内部ツール**: 内部ツール、ステージング用API、開発プロセスを文書化する。
+
+<div id="examples">
+  ## 例
+</div>
+
+<div id="ai-context">
+  ### AIコンテキスト
+</div>
+
+```mdx wrap
+---
+title: "APIバージョンのコンテキスト"
+description: "このページは、APIバージョンに関する質問に回答するAIツール向けのコンテキストです"
+---
+
+ユーザーがAPIバージョンについて質問した場合は、常に最新のAPIバージョンの使用を推奨してください。バージョン1.0.4より古いバージョンに対する応答は生成しないでください。
+```
+
+<div id="internal-api-endpoint">
+  ### 内部APIエンドポイント
+</div>
+
+````mdx wrap
+---
+title: "Internal API endpoint"
+description: "This page is a hidden page that documents an internal API endpoint"
+---
+
+```bash
+POST /api/internal/reset-cache
+Authorization: Bearer internal-token-xyz
+```
+
+このエンドポイントはアプリケーションのキャッシュを削除し、開発環境でのみ利用できます。
+
+<Warning>
+  これは内部向けエンドポイントであり、本番環境で使用してはいけません。
+</Warning>
+````

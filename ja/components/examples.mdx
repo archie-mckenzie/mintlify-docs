@@ -1,0 +1,51 @@
+---
+title: "Examples"
+description: "デスクトップでは右サイドバーにコードブロックを表示する"
+icon: 'between-horizontal-start'
+---
+
+`<RequestExample>` と `<ResponseExample>` コンポーネントは、右サイドバーにコードブロックを表示し、ユーザーがコンテンツをスクロールしても例が見える状態を保つ2カラムレイアウトを作成します。これらのコンポーネントはAPIドキュメント向けに設計されていますが、すべてのページで使用できます。
+
+一般的なユースケース:
+
+* リクエストおよびレスポンスの例を含むAPIエンドポイントのドキュメント
+* 解説テキストと並置する設定例
+* 手順に従いながら参照できるコードサンプル
+* チュートリアルにおけるBefore/Afterの例
+
+モバイルデバイスでは、`<RequestExample>` と `<ResponseExample>` コンポーネントは通常のコードブロックとして表示され、スクロールで通過できます。
+
+<div id="requestexample">
+  ## RequestExample
+</div>
+
+右サイドバーにコード例を固定するには `<RequestExample>` を使用します。このコンポーネントは [CodeGroup](/ja/components/code-groups) コンポーネントと同様に動作しますが、コードをインラインではなくサイドバーに表示します。
+
+1つの `<RequestExample>` の中に複数のコードブロックを含められます。各コードブロックには title 属性が必要です。
+
+````mdx RequestExample
+<RequestExample>
+
+```bash Request
+  curl --request POST \
+    --url https://dog-api.kinduff.com/api/facts
+```
+
+</RequestExample>
+````
+
+<div id="responseexample">
+  ## ResponseExample
+</div>
+
+`<ResponseExample>` コンポーネントは、同一ページ内の `<RequestExample>` コンテンツの直下にある右サイドバーへコード例をピン留め表示します。
+
+````mdx ResponseExample
+<ResponseExample>
+
+```json Response
+{ "status": "success" }
+```
+
+</ResponseExample>
+````

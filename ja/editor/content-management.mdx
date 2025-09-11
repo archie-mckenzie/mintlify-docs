@@ -1,0 +1,120 @@
+---
+title: "コンテンツの管理"
+description: "ドキュメントページの作成・編集・整理"
+---
+
+<div id="navigating-your-files">
+  ## ファイルを操作する
+</div>
+
+サイドバーのファイルエクスプローラーでドキュメントファイルを閲覧します。任意のファイルをクリックするとエディターで開きます。
+
+<kbd>Command</kbd> + <kbd>P</kbd>（Windowsは <kbd>Ctrl</kbd> + <kbd>P</kbd>）で、ファイル名を検索できます。
+
+<div id="creating-new-pages">
+  ## 新しいページを作成する
+</div>
+
+<Steps>
+  <Step title="新しいファイルを作成">
+    ファイルエクスプローラーのサイドバーで、**Create a new file** アイコンを選択します。
+    
+    <img
+      src="/images/editor/files-menu-light.png"
+      className="block dark:hidden rounded-2xl border border-gray-100 shadow-lg"
+      style={{
+        width: '268px',
+        height: 'auto',
+      }}
+      alt="Webエディターのファイルメニュー"/>
+    <img
+      src="/images/editor/files-menu-dark.png"
+      className="hidden dark:block rounded-2xl border border-white/10 shadow-lg"
+      style={{
+        width: '268px',
+        height: 'auto',
+      }}
+      alt="ダークモードのWebエディターのファイルメニュー"/>
+  </Step>
+  <Step title="ファイル名を入力">
+    ファイル名は `.mdx` で終わる必要があります。例: `api-reference.mdx` または `getting-started.mdx`。
+  </Step>
+  <Step title="作成して開く">
+    <kbd>Enter</kbd> を押してファイルを作成します。エディターで自動的に開き、すぐにコンテンツを追加できます。
+  </Step>
+</Steps>
+
+<div id="organizing-your-navigation">
+  ## ナビゲーションの整理
+</div>
+
+`docs.json` ファイルを編集して、サイトのナビゲーションに新しいページを追加します。
+
+<Steps>
+  <Step title="docs.json を開く">
+    ファイルエクスプローラーでルートディレクトリの `docs.json` を見つけて開きます。
+  </Step>
+  <Step title="navigation セクションを探す">
+    `docs.json` 内で新しいページを追加したい箇所を見つけます。
+  </Step>
+  <Step title="ページを追加する">
+    該当グループの `pages` 配列に、ページのファイル名（`.mdx` 拡張子なし）を追加します。
+  </Step>
+</Steps>
+
+<div id="example-adding-a-themes-page">
+  ### 例: テーマページを追加する
+</div>
+
+```json title="Profile グループにテーマページを追加" highlight="18"
+{
+    "navigation": {
+        "groups": [
+            {
+                "group": "Getting started",
+                "pages": [
+                    "index",
+                    "quickstart", 
+                    "installation"
+                ]
+            },
+            {
+                "group": "Profile",
+                "pages": [
+                    "settings",
+                    "account-types", 
+                    "dashboard",
+                    "themes"
+                ]
+            }
+        ]
+    }
+}
+```
+
+<div id="editing-content">
+  ## コンテンツの編集
+</div>
+
+エディターのビジュアルモードまたはMarkdownモードでページを編集できます。
+
+ビジュアルモードでは、<kbd>/</kbd> を押してコンポーネントメニューを開きます。コンテンツブロック、コールアウト、コードブロックなどのコンポーネントを追加して、ドキュメントをカスタマイズできます。
+
+<Frame>
+  <img 
+    src="/images/editor/component-menu-light.png" 
+    alt="Mintlify Webエディターで展開されたコンポーネントメニューの強調表示" 
+    className="block dark:hidden" 
+  />
+  <img 
+    src="/images/editor/component-menu-dark.png" 
+    alt="Mintlify Webエディターで展開されたコンポーネントメニューの強調表示" 
+    className="hidden dark:block" 
+  />
+</Frame>
+
+Markdownモードでは、ページの `MDX` を直接編集できます。次のような場合に便利です:
+
+- 特定のコンポーネントのプロパティを設定する
+- 複雑にネストされたコンポーネントを扱う
+- 他のソースから `MDX` コンテンツをコピー＆ペーストする

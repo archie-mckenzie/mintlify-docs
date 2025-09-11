@@ -1,0 +1,163 @@
+---
+title: "ページ"
+description: "ページはドキュメントを構成する基本要素です"
+icon: "letter-text"
+keywords: ["tags", "tag"]
+---
+
+import IconsOptional from "/snippets/ja/icons-optional.mdx";
+
+各ページはMDXファイルで、MarkdownコンテンツとReactコンポーネントを組み合わせて、リッチでインタラクティブなドキュメントを作成できます。
+
+<div id="page-metadata">
+  ## ページのメタデータ
+</div>
+
+すべてのページは、ファイル先頭の `---` で囲まれた frontmatter（YAMLメタデータ）から始まります。このメタデータは、ページの表示と動作を定義します。
+
+メタデータで制御できるもの:
+
+* ページタイトルと説明
+* サイドバーのタイトル、アイコン、タグ
+
+<ResponseField name="title" type="string" required>
+  ナビゲーションやブラウザのタブに表示されるページのタイトル。
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  このページで扱う内容の簡潔な説明。タイトルの下に表示され、SEOの改善に役立ちます。
+</ResponseField>
+
+<ResponseField name="sidebarTitle" type="string">
+  サイドバーのナビゲーションに表示される短いタイトル。
+</ResponseField>
+
+<IconsOptional />
+
+<ResponseField name="tag" type="string">
+  サイドバーでページタイトルの横に表示されるタグ。
+</ResponseField>
+
+```yaml Example YAML frontmatter wrap
+---
+title: "About frontmatter"
+description: "Frontmatter is the metadata that controls how your page appears and behaves"
+sidebarTitle: "Frontmatter"
+icon: "book"
+tag: "NEW"
+---
+```
+
+<div id="page-mode">
+  ## ページモード
+</div>
+
+`mode` 設定でページの表示方法を制御します。
+
+<div id="default">
+  ### デフォルト
+</div>
+
+モードが指定されていない場合は、サイドバーのナビゲーションと目次を備えた標準レイアウトが使用されます。
+
+```yaml
+---
+title: "Default page title"
+---
+```
+
+<div id="wide">
+  ### ワイド
+</div>
+
+ワイドモードでは目次を非表示にします。見出しのないページや、横幅を広く使いたい場合に便利です。
+
+```yaml
+---
+title: "Wide page title"
+mode: "wide"
+---
+```
+
+<div id="custom">
+  ### Custom
+</div>
+
+Customモードは、トップのナビバー以外の要素をすべて取り除いたミニマルなレイアウトを提供します。ランディングページや、ナビゲーション要素を最小限に抑えたい独自レイアウトを作成するための白紙のキャンバスとして利用できます。
+
+```yaml
+---
+title: "Custom page title"
+mode: "custom"
+---
+```
+
+<div id="center">
+  ### Center
+</div>
+
+Centerモードはサイドバーと目次を非表示にし、コンテンツを中央に配置します。変更履歴など、コンテンツ自体を強調したいページに適しています。
+
+```yaml
+---
+title: "Center page title"
+mode: "center"
+---
+```
+
+<div id="api-pages">
+  ## APIページ
+</div>
+
+frontmatter に API 仕様（`api` または `openapi`）を追加して、インタラクティブな API プレイグラウンドを作成します。
+
+```yaml
+---
+openapi: "GET /endpoint"
+---
+```
+
+[API ドキュメント](/ja/api-playground/overview)の構築について詳しく見る。
+
+<div id="external-links">
+  ## 外部リンク
+</div>
+
+ナビゲーションから外部サイトへは、`url` メタデータを使って直接リンクできます。
+
+```yaml
+---
+title: "npm Package"
+url: "https://www.npmjs.com/package/mint"
+---
+```
+
+<div id="search-engine-optimization">
+  ## 検索エンジン最適化
+</div>
+
+ほとんどのSEOメタタグは自動生成されます。サイトのSEO、ソーシャル共有、ブラウザ互換性を向上させるために、SEOメタタグを手動で設定することもできます。
+
+<Note>
+  コロンを含むメタタグは、引用符で囲む必要があります。
+</Note>
+
+```yaml
+---
+"twitter:image": "/images/social-preview.jpg"
+---
+```
+
+SEOメタデータの全オプションについては、[SEO](/ja/settings/seo)を参照してください。
+
+<div id="internal-search-keywords">
+  ## 内部検索キーワード
+</div>
+
+メタデータで `keywords` を指定すると、組み込み検索で特定のページの見つけやすさを高められます。これらのキーワードはページ本文や検索結果には表示されませんが、その語句で検索したユーザーには該当ページが検索結果として表示されます。
+
+```yaml
+---
+keywords: ['configuration', 'setup', 'getting started']
+---
+```

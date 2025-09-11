@@ -1,0 +1,84 @@
+---
+title: "Speakeasy"
+description: "API プレイグラウンドで SDK の使用例スニペットを自動生成"
+---
+
+Speakeasy の SDK から自動生成されるコードスニペットは、Mintlify の API リファレンスに直接組み込めます。これらの SDK 使用例スニペットは、Mintlify ベースのドキュメントサイトにある[インタラクティブなプレイグラウンド](/ja/api-playground/overview)に表示されます。
+
+<Frame>
+  ![Speakeasy のコードスニペットを表示する Mintlify の API プレイグラウンド](/images/speakeasy/mintlify-with-speakeasy-openapi.png)
+</Frame>
+
+<div id="prerequisites">
+  ## 前提条件
+</div>
+
+Mintlify を Speakeasy と統合するには、以下が必要です：
+
+* [Mintlify のドキュメント用リポジトリ](/ja/quickstart#creating-the-repository)
+  * [自動コードサンプル URL](https://www.speakeasy.com/docs/code-samples/automated-code-sample-urls) を設定した、Speakeasy が生成する SDK
+
+<div id="setting-up-the-integration">
+  ## 統合の設定
+</div>
+
+Speakeasy を Mintlify と統合するには、レジストリから API の統合仕様の公開 URL を取得し、`docs.json` 設定ファイルを更新します。
+
+<div id="get-the-apis-combined-spec-public-url-from-the-registry">
+  ### レジストリから API の結合仕様の公開 URL を取得する
+</div>
+
+[Speakeasy Dashboard](https://app.speakeasy.com) に移動し、**API Registry** タブを開きます。API の `*-with-code-samples` エントリを開きます。
+
+<Frame>
+  ![Speakeasy の API Registry ページのスクリーンショット。API Registry タブが赤い四角と数字の 1 で強調され、API のエントリが赤い四角と数字の 2 で強調されています。](/images/speakeasy/openapi-registry-and-combined-spec.png)
+</Frame>
+
+<Note>
+  エントリに **Combined Spec** と表示されていない場合は、API に[自動コードサンプル URL](https://www.speakeasy.com/docs/code-samples/automated-code-sample-urls) が設定されていることを確認してください。
+</Note>
+
+レジストリエントリのページで、表示されている公開 URL をコピーします。
+
+<Frame>
+  ![結合仕様のレジストリエントリが表示され、URL をコピーする機能が赤い四角で強調されているスクリーンショット。](/images/speakeasy/copy-combined-spec-url.png)
+</Frame>
+
+<div id="update-your-docsjson-configuration-file">
+  ### `docs.json` 構成ファイルを更新する
+</div>
+
+結合済みの仕様（spec）のURLを、`docs.json` ファイル内の **Anchors** または **Tabs** セクションに追加します。
+
+アンカーに結合済み仕様のURLを追加するには、`docs.json` ファイルの `anchor` フィールドを次のように更新します:
+
+```json docs.json
+{
+  "anchors": [
+    {
+      "name": "API Reference",
+      // !mark
+      "openapi": "SPEAKEASY_COMBINED_SPEC_URL",
+      "url": "api-reference",
+      "icon": "square-terminal"
+    }
+  ]
+}
+```
+
+タブに結合済み仕様のURLを追加するには、`docs.json` ファイルの `tab` フィールドを次のように更新します:
+
+```json docs.json
+{
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference",
+      // !mark
+      "openapi": "SPEAKEASY_COMBINED_SPEC_URL"
+    }
+  ]
+}
+```
+
+Speakeasy が生成したコードスニペットは、API ドキュメントで閲覧でき、プレイグラウンドで操作できます。

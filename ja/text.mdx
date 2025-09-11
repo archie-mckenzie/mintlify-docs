@@ -1,0 +1,284 @@
+---
+title: "見出しとテキスト"
+description: "テキストの書式設定、見出しの作成、コンテンツのスタイリング方法を学ぶ"
+icon: "heading"
+---
+
+<div id="headers">
+  ## 見出し
+</div>
+
+見出しはコンテンツを整理し、ナビゲーション用のアンカーを作成します。目次に表示され、ユーザーがドキュメントを素早く把握できるようにします。
+
+<div id="creating-headers">
+  ### 見出しの作成
+</div>
+
+見出しのレベルを変えるには、`#` 記号を使用します:
+
+```mdx
+## Main section header
+### Subsection header
+#### Sub-subsection header
+```
+
+<Tip>
+  以降の内容を明確に示し、適切なキーワードを含む説明的な見出しを使いましょう。これにより、ユーザーのナビゲーション性と検索エンジン最適化の両方が向上します。
+</Tip>
+
+<div id="disabling-anchor-links">
+  ### アンカーリンクの無効化
+</div>
+
+デフォルトでは、見出しにはクリック可能なアンカーリンクが含まれており、ユーザーは特定のセクションへ直接リンクできます。HTML または React の見出しで `noAnchor` プロップを使用すると、これらのアンカーリンクを無効化できます。
+
+<CodeGroup>
+  ```mdx HTML header example
+  <h2 noAnchor>
+  アンカーリンクのない見出し
+  </h2>
+  ```
+
+  ```mdx React header example
+  <Heading level={2} noAnchor>
+  アンカーリンクのない見出し
+  </Heading>
+  ```
+</CodeGroup>
+
+`noAnchor` を使用すると、見出しにはアンカーのチップが表示されず、見出しテキストをクリックしてもアンカーリンクはクリップボードにコピーされません。
+
+<div id="text-formatting">
+  ## テキストの書式設定
+</div>
+
+テキストの強調やスタイルのために、ほとんどのMarkdown書式をサポートしています。
+
+<div id="basic-formatting">
+  ### 基本的な書式設定
+</div>
+
+次の書式スタイルをテキストに適用します:
+
+| スタイル | 構文 | 例 | 結果 |
+|-------|--------|---------|--------|
+| **太字** | `**text**` | `**important note**` | **important note** |
+| *斜体* | `_text_` | `_emphasis_` | *emphasis* |
+| ~~取り消し線~~ | `~text~` | `~deprecated feature~` | ~~deprecated feature~~ |
+
+<div id="combining-formats">
+  ### 書式の組み合わせ
+</div>
+
+複数の書式スタイルを組み合わせられます:
+
+```mdx
+**_bold and italic_**
+**~~bold and strikethrough~~**
+*~~italic and strikethrough~~**
+```
+
+***bold and italic***<br />
+**~~bold and strikethrough~~**<br />
+*~~italic and strikethrough~~*
+
+<div id="superscript-and-subscript">
+  ### 上付き・下付き
+</div>
+
+数式や脚注には HTML タグを使用します：
+
+| 種類 | 構文 | 例 | 結果 |
+|------|--------|---------|--------|
+| 上付き | `<sup>text</sup>` | `example<sup>2</sup>` | example<sup>2</sup> |
+| 下付き | `<sub>text</sub>` | `example<sub>n</sub>` | example<sub>n</sub> |
+
+<div id="links">
+  ## リンク
+</div>
+
+リンクは、ユーザーがページ間を移動したり、外部リソースにアクセスしたりするための手段です。アクセシビリティとユーザーエクスペリエンスを高めるため、内容がわかるリンクテキストを使用してください。
+
+<div id="internal-links">
+  ### 内部リンク
+</div>
+
+ルート相対パスを使用してドキュメント内の他のページへリンクします:
+
+```mdx
+[Quickstart](/quickstart)
+[Steps](/components/steps)
+```
+
+[Quickstart](/ja/quickstart)<br />
+[Steps](/ja/components/steps)
+
+<Note>
+  `[page](../page)` のような相対リンクは読み込みが遅く、ルート相対リンクほど効果的に最適化できないため、使用は避けてください。
+</Note>
+
+<div id="external-links">
+  ### 外部リンク
+</div>
+
+外部リソースには、フルURLを含めてください。
+
+```mdx
+[Markdown Guide](https://www.markdownguide.org/)
+```
+
+[Markdown Guide](https://www.markdownguide.org/)
+
+<div id="broken-links">
+  ### リンク切れ
+</div>
+
+[CLI](/ja/installation) を使ってドキュメント内のリンク切れを確認できます:
+
+```bash
+mint broken-links
+```
+
+<div id="blockquotes">
+  ## 引用ブロック
+</div>
+
+引用ブロックは、コンテンツ内の重要な情報や引用、例を強調表示するために使います。
+
+<div id="single-line-blockquotes">
+  ### 単一行の引用ブロック
+</div>
+
+引用ブロックを作成するには、テキストの前に `>` を追加します。
+
+```mdx
+> This is a quote that stands out from the main content.
+```
+
+> メインコンテンツから際立つ引用です。
+
+<div id="multi-line-blockquotes">
+  ### 複数行の引用ブロック
+</div>
+
+長い引用や複数段落の場合:
+
+```mdx
+> This is the first paragraph of a multi-line blockquote.
+>
+> This is the second paragraph, separated by an empty line with `>`.
+```
+
+> 複数行の引用ブロックの1つ目の段落です。
+>
+> これは2つ目の段落で、空行と `>` によって区切られています。
+
+<Tip>
+  引用ブロックは視覚的な効果と意味を保つため、控えめに使用してください。注記、警告、その他の情報には[コールアウト](/ja/components/callouts)の利用を検討してください。
+</Tip>
+
+<div id="mathematical-expressions">
+  ## 数式表現
+</div>
+
+数式や方程式の表示には LaTeX をサポートしています。
+
+<div id="inline-math">
+  ### インライン数式
+</div>
+
+インラインの数式には `$`（単一のドル記号）を使用します:
+
+```mdx
+The Pythagorean theorem states that $(a^2 + b^2 = c^2)$ in a right triangle.
+```
+
+直角三角形におけるピタゴラスの定理は、$(a^2 + b^2 = c^2)$ を示します。
+
+<div id="block-equations">
+  ### ブロック方程式
+</div>
+
+独立した数式には、`$$`（二重ドル記号）を使用します。
+
+```mdx
+$$
+E = mc^2
+$$
+```
+
+$$
+E = mc^2
+$$
+
+<Info>
+  LaTeX を使用するには、正しい数式（数学）構文が必要です。構文の詳細は、[LaTeX のドキュメント](https://www.latex-project.org/help/documentation/)を参照してください。
+</Info>
+
+<div id="line-breaks-and-spacing">
+  ## 改行と余白
+</div>
+
+コンテンツの可読性を高めるために、余白や改行を制御します。
+
+<div id="paragraph-breaks">
+  ### 段落の区切り
+</div>
+
+段落は空行で区切ります:
+
+```mdx
+This is the first paragraph.
+
+This is the second paragraph, separated by a blank line.
+```
+
+これは最初の段落です。
+
+これは空行で区切られた2つ目の段落です。
+
+<div id="manual-line-breaks">
+  ### 手動改行
+</div>
+
+段落内で強制的に改行するには、HTML の `<br />` タグを使用します:
+
+```mdx
+This line ends here.<br />
+This line starts on a new line.
+```
+
+この行はここで終わります。<br />
+この行は新しい行から始まります。
+
+<Tip>
+  多くの場合、手動の改行よりも空行で段落を分けたほうが可読性が高くなります。
+</Tip>
+
+<div id="best-practices">
+  ## ベストプラクティス
+</div>
+
+<div id="content-organization">
+  ### コンテンツの構成
+</div>
+
+* 見出しで明確なコンテンツ階層を作る
+* 適切な見出し階層に従う（H2からH4へ飛ばさない）
+* 説明的でキーワード豊富な見出し文を作成する
+
+<div id="text-formatting">
+  ### テキストの書式設定
+</div>
+
+* 強調には太字を使い、段落全体には使わない
+* 斜体は用語、タイトル、または控えめな強調に限定する
+* コンテンツの理解を妨げる過度な装飾は避ける
+
+<div id="links">
+  ### リンク
+</div>
+
+* 「click here」や「read more」ではなく、内容が分かるリンクテキストを付ける
+* 内部リンクにはルート相対パスを使う
+* リンク切れを防ぐため、定期的にリンクを確認・テストする

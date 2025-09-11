@@ -1,0 +1,61 @@
+---
+title: "Mermaid"
+description: "Mermaid でダイアグラムを表示する"
+icon: "waypoints"
+---
+
+[Mermaid](https://mermaid.js.org/) を使うと、テキストとコードでフローチャート、シーケンス図、ガントチャートなどの図を作成できます。
+
+対応する図の種類と構文の一覧は、[Mermaid のドキュメント](https://mermaid.js.org/intro/)を参照してください。
+
+```mermaid
+  flowchart LR
+    subgraph subgraph1
+        direction TB
+        top1[top] --> bottom1[bottom]
+    end
+    subgraph subgraph2
+        direction TB
+        top2[top] --> bottom2[bottom]
+    end
+    %% ^ これらのサブグラフは、リンク先以外は同一です:
+
+    %% subgraph1 へのリンク: subgraph1 の向きは維持されます
+    outside --> subgraph1
+    %% subgraph2 内からのリンク:
+    %% subgraph2 はトップレベルのグラフ（LR）の向きを継承します
+    outside ---> top2
+```
+
+````mdx Mermaid フローチャートの例
+```mermaid
+  flowchart LR
+    subgraph subgraph1
+        direction TB
+        top1[top] --> bottom1[bottom]
+    end
+    subgraph subgraph2
+        direction TB
+        top2[top] --> bottom2[bottom]
+    end
+    %% ^ これらのサブグラフは、リンク先以外は同一です:
+
+    %% subgraph1 へのリンク: subgraph1 の向きは維持されます
+    outside --> subgraph1
+    %% subgraph2 内からのリンク:
+    %% subgraph2 はトップレベルのグラフ（LR）の向きを継承します
+    outside ---> top2
+```
+````
+
+<div id="syntax">
+  ## 構文
+</div>
+
+Mermaid のダイアグラムを作成するには、Mermaid のコードブロック内にダイアグラムの定義を記述します。
+
+````mdx
+```mermaid
+// Your mermaid diagram code here
+```
+````
